@@ -53,12 +53,13 @@ public class Interaction {
 	}
 
 	private void saveInteract() {
-		System.out.println("\nВведите имя нового абонента : ");
+		System.out.print("\nВведите имя нового абонента : ");
         String name = scan.nextLine();
 		System.out.print("\nВведите фамилию нового абонента : ");
 		String lastname = scan.nextLine();
 		System.out.print("\nВведите номер телефона нового абонента : ");
 		Integer number = scan.nextInt();
+		scan.nextLine();
 		System.out.print("\nВведите электроную почту нового абонента : ");
 		String email = scan.nextLine();
 		System.out.print("\nВведите город проживания нового абонента : ");
