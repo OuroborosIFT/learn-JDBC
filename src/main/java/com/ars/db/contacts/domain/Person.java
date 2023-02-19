@@ -5,13 +5,13 @@ public class Person {
     private Integer id;
     private String firstname;
     private String lastname;
-    private String number;
+    private Integer number;
     private String email;
     private String city;
 
     public Person() {}
 
-    public Person(String firstname, String lastname, String number, String email, String city) {
+    public Person(String firstname, String lastname, Integer number, String email, String city) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.number = number;
@@ -43,11 +43,11 @@ public class Person {
         this.lastname = lastname;
     }
 
-    public String getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
 

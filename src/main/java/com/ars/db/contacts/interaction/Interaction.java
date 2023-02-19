@@ -38,35 +38,16 @@ public class Interaction {
             scan.nextLine();
 
 			switch (i) {
-				case 1 :
-					saveInteract();
-					break;
-				case 2 :
-					outId();
-					break;
-				case 3 :
-					outName();
-					break;
-				case 4 :
-					outLastname();
-					break;
-				case 5 :
-					outNumber();
-					break;
-				case 6 :
-					outEmail();
-					break;
-				case 7 :
-					outCity();
-					break;
-				case 8 :
-					removeInteract();
-					break;
-				case 9 :
-					outAll();
-					break;
-				default :
-					System.out.println("Сеанс прерван!");
+				case 1 -> saveInteract();
+				case 2 -> outId();
+				case 3 -> outName();
+				case 4 -> outLastname();
+				case 5 -> outNumber();
+				case 6 -> outEmail();
+				case 7 -> outCity();
+				case 8 -> removeInteract();
+				case 9 -> outAll();
+				default -> System.out.println("Сеанс прерван!");
 			}
 		} while (i != 0);
 	}
@@ -77,7 +58,7 @@ public class Interaction {
 		System.out.print("\nВведите фамилию нового абонента : ");
 		String lastname = scan.nextLine();
 		System.out.print("\nВведите номер телефона нового абонента : ");
-		String number = scan.nextLine();
+		Integer number = scan.nextInt();
 		System.out.print("\nВведите электроную почту нового абонента : ");
 		String email = scan.nextLine();
 		System.out.print("\nВведите город проживания нового абонента : ");
@@ -132,7 +113,7 @@ public class Interaction {
 		System.out.print("\nВведите новую фамилию абонента : ");
 		String lastname = scan.nextLine();
 		System.out.print("\nВведите новый номер телефона абонента : ");
-		String number = scan.nextLine();
+		Integer number = scan.nextInt();
 		System.out.print("\nВведите новую электроную почту абонента : ");
 		String email = scan.nextLine();
 		System.out.print("\nВведите новый город проживания абонента : ");

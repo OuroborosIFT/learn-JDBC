@@ -20,7 +20,7 @@ public class PersonServiceImpl implements PersonService {
 	public void save(PersonDto dto) {
 		String name = dto.getFirstname();
 		String lastname = dto.getLastname();
-		String number = dto.getNumber();
+		Integer number = dto.getNumber();
 		String email = dto.getEmail();
 		String city = dto.getCity();
 		Person person = new Person(name, lastname, number, email, city);
@@ -38,22 +38,22 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public Person getByLastname(String lastname) {
+	public List<Person> getByLastname(String lastname) {
 		return personRepository.findByLastname(lastname);
 	}
 
 	@Override
-	public Person getByNumber(String number) {
+	public List<Person> getByNumber(String number) {
 		return personRepository.findByNumber(number);
 	}
 
 	@Override
-	public Person getByEmail(String email) {
+	public List<Person> getByEmail(String email) {
 		return personRepository.findByEmail(email);
 	}
 
 	@Override
-	public Person getByCity(String city) {
+	public List<Person> getByCity(String city) {
 		return personRepository.findByCity(city);
 	}
 
@@ -61,7 +61,7 @@ public class PersonServiceImpl implements PersonService {
 	public void update(PersonDto dto) {
 		String name = dto.getFirstname();
 		String lastname = dto.getLastname();
-		String number = dto.getNumber();
+		Integer number = dto.getNumber();
 		String email = dto.getEmail();
 		String city = dto.getCity();
 		Person person = new Person(name, lastname, number, email, city);
@@ -72,7 +72,7 @@ public class PersonServiceImpl implements PersonService {
 	public void remove(PersonDto dto) {
 		String name = dto.getFirstname();
 		String lastname = dto.getLastname();
-		String number = dto.getNumber();
+		Integer number = dto.getNumber();
 		String email = dto.getEmail();
 		String city = dto.getCity();
 		Person person = new Person(name, lastname, number, email, city);

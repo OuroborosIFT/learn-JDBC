@@ -9,10 +9,10 @@ public interface PersonRepository {
 	void create(Person person);
 	Person findById(Integer id);
 	List<Person> findByName(String name);
-	Person findByLastname(String lastname);
-	Person findByNumber(String number);
-	Person findByEmail(String email);
-	Person findByCity(String city);
+	List<Person> findByLastname(String lastname);
+	List<Person> findByNumber(String number);
+	List<Person> findByEmail(String email);
+	List<Person> findByCity(String city);
 	void update(Person person);
 	void delete(Person person);
 	List<Person> findAll();

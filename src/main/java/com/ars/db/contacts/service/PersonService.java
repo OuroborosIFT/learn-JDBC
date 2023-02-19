@@ -10,10 +10,10 @@ public interface PersonService {
 	void save(PersonDto dto);
 	Person getById(Integer id);
 	List<Person> getByName(String name);
-	Person getByLastname(String lastname);
-	Person getByNumber(String number);
-	Person getByEmail(String email);
-	Person getByCity(String city);
+	List<Person> getByLastname(String lastname);
+	List<Person> getByNumber(String number);
+	List<Person> getByEmail(String email);
+	List<Person> getByCity(String city);
 	void update(PersonDto dto);
 	void remove(PersonDto dto);
 	List<Person> getAll();
