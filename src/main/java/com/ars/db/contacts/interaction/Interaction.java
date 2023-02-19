@@ -5,6 +5,7 @@ import com.ars.db.contacts.dto.PersonDto;
 import com.ars.db.contacts.service.PersonService;
 import com.ars.db.contacts.service.PersonServiceImpl;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.List;
 
@@ -34,8 +35,13 @@ public class Interaction {
 			System.out.println("\t9 - Список всех абонентов");
 			System.out.println("\t0 - Выход");
 			System.out.print(" -> ");
-			i = scan.nextInt();
-            scan.nextLine();
+			try {
+				i = scan.nextInt(); scan.nextLine();
+			} catch (InputMismatchException ex) {
+				System.out.println("Попробуйте ввести еще раз");
+				i = -1;
+				continue;
+			}
 
 			switch (i) {
 				case 1 -> saveInteract();
@@ -70,7 +76,14 @@ public class Interaction {
 
 	private void outId() {
 		System.out.print("\nВведите id абонента : ");
-		Integer id = scan.nextInt();
+		Integer id;
+		try {
+			String line = scan.nextLine();
+			id = Integer.valueOf(line);
+		} catch (Exception e) {
+			System.out.println("\nНе является числом!  Попробуйте ещё раз.");
+			return;
+		}
 		System.out.println(service.getById(id));
 	}
 
@@ -125,7 +138,14 @@ public class Interaction {
 
 	private void removeInteract() {
 		System.out.print("\nВведите id пользователя, которого надо удалить : ");
-		Integer id = scan.nextInt(); scan.nextLine();
+		Integer id;
+		try {
+			String line = scan.nextLine();
+			id = Integer.valueOf(line);
+		} catch (Exception ex) {
+			System.out.println("\nНе является числом! \nПовторите снова");
+			return;
+		}
 		service.remove(id);
 	}
 

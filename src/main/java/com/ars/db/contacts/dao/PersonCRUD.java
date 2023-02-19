@@ -4,7 +4,7 @@ import com.ars.db.contacts.domain.Person;
 import com.ars.db.contacts.connect.Connect;
 
 import java.sql.Connection;
-import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import java.util.List;
@@ -14,19 +14,20 @@ public class PersonCRUD implements PersonRepository {
 
     private Connect connect;
     private final Connection con = Connect.getConnection();
-    private Statement state;
+    private PreparedStatement state;
     private ResultSet resultSet;
 
     @Override
     public void create(Person person) {
         try {
-            state = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            state.executeUpdate("INSERT INTO contact_list (firstname, lastname, phone_number, email, city) " +
-                    "VALUES ('" + person.getFirstname() + "', " +
-                            "'" + person.getLastname() + "', "
-                                + person.getNumber() + ", " +
-                            "'" + person.getEmail() + "', " +
-                            "'" + person.getCity() + "')");
+            String sql = "INSERT INTO contact_list (firstname, lastname, phone_number, email, city) VALUES (?, ?, ?, ?, ?)";
+            state = con.prepareStatement(sql);
+            state.setString(1, person.getFirstname());
+            state.setString(2, person.getLastname());
+            state.setInt(3, person.getNumber());
+            state.setString(4, person.getEmail());
+            state.setString(5, person.getCity());
+            state.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,14 +68,14 @@ public class PersonCRUD implements PersonRepository {
     @Override
     public void update(Person person) {
         try {
-            state = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            state.executeUpdate("UPDATE contact_list SET " +
-                    "firstname = '" + person.getFirstname() + "', " +
-                    "lastname = '" + person.getLastname() + "', " +
-                    "phone_number = '" + person.getNumber() + "', " +
-                    "email = '" + person.getEmail() + "', " +
-                    "city = '" + person.getCity() + "' " +
-                    "WHERE contact_id = " + person.getId() + ";");
+            String sql = "UPDATE contact_list SET firstname = ?, lastname = ?, phone_number = ?, email = ?, city = ? WHERE contact_id = ?";
+            state = con.prepareStatement(sql);
+            state.setString(1, person.getFirstname());
+            state.setString(2, person.getLastname());
+            state.setInt(3, person.getNumber());
+            state.setString(4, person.getEmail());
+            state.setString(5, person.getCity());
+            state.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -83,8 +84,10 @@ public class PersonCRUD implements PersonRepository {
     @Override
     public void delete(Integer id) {
         try {
-            state = con.createStatement();
-            state.executeUpdate("DELETE FROM contact_list WHERE contact_id = " + id);
+            String sql = "DELETE FROM contact_list WHERE contact_id = ?";
+            state = con.prepareStatement(sql);
+            state.setInt(1, id);
+            state.executeUpdate();
             state.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,8 +99,9 @@ public class PersonCRUD implements PersonRepository {
         List<Person> personList = new ArrayList<>();
 
         try {
-            state = con.createStatement();
-            resultSet = state.executeQuery("SELECT * FROM contact_list");
+            String sql = "SELECT * FROM contact_list";
+            state = con.prepareStatement(sql);
+            resultSet = state.executeQuery();
 
             while (resultSet.next()) {
                 personList.add(new Person(resultSet.getString("firstname"),
@@ -117,8 +121,10 @@ public class PersonCRUD implements PersonRepository {
         List<Person> persons = new ArrayList<>();
 
         try {
-            state = con.createStatement();
-            resultSet = state.executeQuery("SELECT firstname, lastname, phone_number, email, city FROM contact_list WHERE " + fieldName + " = '" + fieldValue + "'");
+            String sql = "SELECT firstname, lastname, phone_number, email, city FROM contact_list WHERE " + fieldName + " = ?";
+            state = con.prepareStatement(sql);
+            state.setString(1, fieldValue);
+            resultSet = state.executeQuery();
             while (resultSet.next()) {
                 Person person = new Person();
                 person.setFirstname(resultSet.getString("firstname"));
@@ -138,4 +144,3 @@ public class PersonCRUD implements PersonRepository {
     }
 
 }
-
