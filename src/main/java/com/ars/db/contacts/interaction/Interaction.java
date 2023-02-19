@@ -125,14 +125,8 @@ public class Interaction {
 
 	private void removeInteract() {
 		System.out.print("\nВведите id пользователя, которого надо удалить : ");
-		Integer id = scan.nextInt();
-		Person person = service.getById(id);
-		PersonDto dto = new PersonDto(person.getFirstname(),
-									person.getLastname(),
-									person.getNumber(),
-									person.getEmail(),
-									person.getCity());
-		service.remove(dto);
+		Integer id = scan.nextInt(); scan.nextLine();
+		service.remove(id);
 	}
 
 	private void outAll() {

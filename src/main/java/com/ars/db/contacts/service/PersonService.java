@@ -15,7 +15,7 @@ public interface PersonService {
 	List<Person> getByEmail(String email);
 	List<Person> getByCity(String city);
 	void update(PersonDto dto);
-	void remove(PersonDto dto);
+	void remove(Integer id);
 	List<Person> getAll();
 
 } 

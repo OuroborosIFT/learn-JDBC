@@ -81,10 +81,11 @@ public class PersonCRUD implements PersonRepository {
     }
 
     @Override
-    public void delete(Person person) {
+    public void delete(Integer id) {
         try {
-            state = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            state.executeUpdate("DELETE FROM contact_list WHERE contact_id = " + person.getId());
+            state = con.createStatement();
+            state.executeUpdate("DELETE FROM contact_list WHERE contact_id = " + id);
+            state.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

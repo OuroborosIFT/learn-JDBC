@@ -14,7 +14,7 @@ public interface PersonRepository {
 	List<Person> findByEmail(String email);
 	List<Person> findByCity(String city);
 	void update(Person person);
-	void delete(Person person);
+	void delete(Integer id);
 	List<Person> findAll();
 
 }

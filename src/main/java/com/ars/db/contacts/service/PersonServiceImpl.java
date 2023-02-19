@@ -69,14 +69,8 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public void remove(PersonDto dto) {
-		String name = dto.getFirstname();
-		String lastname = dto.getLastname();
-		Integer number = dto.getNumber();
-		String email = dto.getEmail();
-		String city = dto.getCity();
-		Person person = new Person(name, lastname, number, email, city);
-		personRepository.delete(person);
+	public void remove(Integer id) {
+		personRepository.delete(id);
 	}
 
 	@Override
