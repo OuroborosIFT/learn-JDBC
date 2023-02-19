@@ -9,7 +9,7 @@ public interface PersonService {
 
 	void save(PersonDto dto);
 	Person getById(Integer id);
-	Person getByName(String name);
+	List<Person> getByName(String name);
 	Person getByLastname(String lastname);
 	Person getByNumber(String number);
 	Person getByEmail(String email);

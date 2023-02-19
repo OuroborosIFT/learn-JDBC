@@ -21,7 +21,7 @@ public class PersonCRUD implements PersonRepository {
     public void create(Person person) {
         try {
             state = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            state.executeUpdate("INSERT INTO jc_contact (firstname, lastname, phone_number, email, city) " +
+            state.executeUpdate("INSERT INTO contact_list (firstname, lastname, phone_number, email, city) " +
                     "VALUES ('" + person.getFirstname() + "', '" + person.getLastname() + "', '" +
                     person.getNumber() + "', '" + person.getEmail() + "', '" + person.getCity() + "');'");
         } catch (Exception e) {
@@ -35,12 +35,14 @@ public class PersonCRUD implements PersonRepository {
 
         try {
             state = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            resultSet = state.executeQuery("SELECT firstname, lastname, phone_number, email, city FROM jc_contact WHERE contact_id = " + id + ";");
-            person.setFirstname(resultSet.getString("firstname"));
-            person.setLastname(resultSet.getString("lastname"));
-            person.setNumber(resultSet.getString("phone_number"));
-            person.setEmail(resultSet.getString("email"));
-            person.setCity(resultSet.getString("city"));
+            resultSet = state.executeQuery("SELECT firstname, lastname, phone_number, email, city FROM contact_list WHERE contact_id = " + id + ";");
+            while (resultSet.next()) {
+                person.setFirstname(resultSet.getString("firstname"));
+                person.setLastname(resultSet.getString("lastname"));
+                person.setNumber(resultSet.getString("phone_number"));
+                person.setEmail(resultSet.getString("email"));
+                person.setCity(resultSet.getString("city"));
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,23 +52,28 @@ public class PersonCRUD implements PersonRepository {
     }
 
     @Override
-    public Person findByName(String name) {
-        Person person = new Person();
+    public List<Person> findByName(String name) {
+        List<Person> persons = new ArrayList<>();
 
         try {
-            state = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            resultSet = state.executeQuery("SELECT firstname, lastname, phone_number, email, city FROM contact_list WHERE firstname = " + name + ";");
-            person.setFirstname(resultSet.getString("firstname"));
-            person.setLastname(resultSet.getString("lastname"));
-            person.setNumber(resultSet.getString("phone_number"));
-            person.setEmail(resultSet.getString("email"));
-            person.setCity(resultSet.getString("city"));
+            state = con.createStatement();
+            resultSet = state.executeQuery("SELECT firstname, lastname, phone_number, email, city FROM contact_list WHERE firstname = '" + name + "'");
+            while (resultSet.next()) {
+                Person person = new Person();
+                person.setFirstname(resultSet.getString("firstname"));
+                person.setLastname(resultSet.getString("lastname"));
+                person.setNumber(resultSet.getString("phone_number"));
+                person.setEmail(resultSet.getString("email"));
+                person.setCity(resultSet.getString("city"));
+
+                persons.add(person);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return person;
+        return persons;
     }
 
     @Override

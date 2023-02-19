@@ -8,7 +8,7 @@ public interface PersonRepository {
 
 	void create(Person person);
 	Person findById(Integer id);
-	Person findByName(String name);
+	List<Person> findByName(String name);
 	Person findByLastname(String lastname);
 	Person findByNumber(String number);
 	Person findByEmail(String email);

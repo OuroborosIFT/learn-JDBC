@@ -12,7 +12,6 @@ public class Connect {
 	private static final String password = "user";
 
 	static {
-		System.out.println("Static initialize");
 		try {
 			connection = DriverManager.getConnection(url, login, password);
 		} catch (SQLException e) {
@@ -20,27 +19,6 @@ public class Connect {
 		}
 	}
 
-	/*{
-		System.out.println("Initialiuze 1");
-	}
-
-	static {
-		System.out.println("Static initialize 2");
-
-	}
-
-	public Connect() {
-		System.out.println("Constructor");
-	}
-
-	{
-		System.out.println("Initialiuze 2");
-	}
-
-	static {
-		System.out.println("Static initialize 3");
-	}
-*/
 	public static Connection getConnection() {
 		return connection;
 	}
@@ -64,4 +42,3 @@ public class Connect {
 	}
 
 }
-

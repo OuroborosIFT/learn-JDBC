@@ -95,7 +95,11 @@ public class Interaction {
 	private void outName() {
 		System.out.print("\nВведите имя абонента : ");
 		String name = scan.nextLine();
-		System.out.println(service.getByName(name));
+		for (Person person: service.getByName(name)) {
+			System.out.println(person);
+			System.out.println("");
+		}
+
 	}
 
 	private void outLastname() {

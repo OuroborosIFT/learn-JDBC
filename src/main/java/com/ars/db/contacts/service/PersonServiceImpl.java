@@ -33,7 +33,7 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public Person getByName(String name) {
+	public List<Person> getByName(String name) {
 		return personRepository.findByName(name);
 	}
 
