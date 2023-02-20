@@ -32,3 +32,5 @@ bin/
 .idea
 
 remark.txt
+
+target/
