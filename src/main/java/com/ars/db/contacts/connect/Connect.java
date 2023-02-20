@@ -23,13 +23,16 @@ public class Connect {
 		return connection;
 	}
 
-	public void stopConnect() {
+	public static boolean stopConnect() {
+		boolean isClose = false;
+
 		try {
 			connection.close();
-		} 
+			isClose = connection.isClosed();
+		}
 		catch (Exception ex) {
 			ex.printStackTrace();
-		} 
+		}
 		finally {
 			DriverManager.getDrivers().asIterator().forEachRemaining(driver -> {
 				try {
@@ -39,6 +42,8 @@ public class Connect {
 				}
 			});
 		}
+		
+		return isClose;
 	}
 
 }

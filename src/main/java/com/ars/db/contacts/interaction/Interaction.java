@@ -1,5 +1,6 @@
 package com.ars.db.contacts.interaction;
 
+import com.ars.db.contacts.connect.Connect;
 import com.ars.db.contacts.domain.Person;
 import com.ars.db.contacts.dto.PersonDto;
 import com.ars.db.contacts.service.PersonService;
@@ -53,7 +54,7 @@ public class Interaction {
 				case 7 -> outCity();
 				case 8 -> removeInteract();
 				case 9 -> outAll();
-				default -> System.out.println("Сеанс прерван!");
+				default -> System.out.println("\nСеанс прерван : " + Connect.stopConnect());
 			}
 		} while (i != 0);
 	}
